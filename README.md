@@ -1,6 +1,6 @@
 # Программирование 1 Семестр
 
-## Иванов Александр M3101
+## Иванов Александр M3101 (Вариант 8)
 
 ---
 * [Лабораторная работа №1](https://github.com/Bibletoon/programmingFirstSem/tree/master/Lab1)
