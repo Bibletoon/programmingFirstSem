@@ -57,8 +57,8 @@ int main()
         printf(" %d,", digits[i]);
     }
     printf("]\n");
-    char gg;
-    scanf("%c",&gg);
+    char trash; //This variable uses to catch enter after input of number. If you remove it, fgets wil scan only enter symbol.
+    scanf("%c",&trash);
     char string[100];
     printf("Enter string: ");
     fgets(string,256,stdin);
