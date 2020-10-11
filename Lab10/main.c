@@ -61,7 +61,7 @@ int main()
     scanf("%c",&trash);
     char string[100];
     printf("Enter string: ");
-    fgets(string,256,stdin);
+    gets(string);
     int i=0;
     removeExtraSpaces(string,0,0);
     printf("New string:");
