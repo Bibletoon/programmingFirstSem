@@ -4,9 +4,9 @@ int main() {
     char firstString[100];
     char secondString[100];
     printf("Enter first string: ");
-    scanf("%s", &firstString);
+    gets(firstString);
     printf("Enter second string: ");
-    scanf("%s", &secondString);
+    gets(secondString);
     int i=0;
     int j=0;
     char concatinatedString[200];
