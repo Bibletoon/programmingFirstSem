@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "rightTriangle.c"
+#include "rightTriangle.h"
 
 int main() {
     struct rightTriangle triangle;
