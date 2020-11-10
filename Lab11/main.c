@@ -15,8 +15,6 @@ int main() {
     scanf("%f", &triangle.x3 );
     printf("Enter third point y: ");
     scanf("%f", &triangle.y3 );
-    printf("%f %f %f\n", triangle.x1, triangle.x2, triangle.x3);
-    printf("%f %f %f\n", triangle.y1, triangle.y2, triangle.y3);
     printf("Triangle area: %f\n", rightTriangleArea(triangle));
     printf("Triangle perimeter: %f\n", rightTrianglePerimeter(triangle));
 }
