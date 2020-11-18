@@ -57,7 +57,7 @@ void show(char *filename)
         printf("No metainformation in file.");
         return;
     }
-    printf("%c%c%cv2.%d.%d\n", header.data.marker[0], header.data.marker[1], header.data.marker[2], header.data.version,header.data.subversion);
+    printf("%c%c%cv2.%d.%d\n", header.data.marker[0], header.data.marker[1], header.data.marker[2], header.data.version, header.data.subversion);
     while (ftell(file) < getSize(header.data.size) + 10)
     {
         tagFrame frame;
@@ -71,10 +71,18 @@ void show(char *filename)
         unsigned int valueSize = reverseBytes(frame.data.size);
         unsigned char *value = malloc((size_t)1 * valueSize);
         fread(value, (size_t)1, valueSize, file);
-        for (int i = 0; i < valueSize; i++)
+        if (frame.data.name[0] == 'A' && frame.data.name[1] == 'P' && frame.data.name[2] == 'I' && frame.data.name[3] == 'C')
         {
-            printf("%c", value[i]);
+            printf("unsupported tag");
         }
+        else
+        {
+            for (int i = 0; i < valueSize; i++)
+            {
+                printf("%c", value[i]);
+            }
+        }
+
         printf("\n");
         free(value);
     }
@@ -106,10 +114,16 @@ void get(char *filename, char *propname)
             unsigned char *value = malloc((size_t)1 * valueSize);
             fread(value, (size_t)1, valueSize, file);
             printf("%s = ", frame.data.name);
-
-            for (int i = 0; i < valueSize; i++)
+            if (frame.data.name[0] == 'A' && frame.data.name[1] == 'P' && frame.data.name[2] == 'I' && frame.data.name[3] == 'C')
             {
-                printf("%c", value[i]);
+                printf("unsupported tag");
+            }
+            else
+            {
+                for (int i = 0; i < valueSize; i++)
+                {
+                    printf("%c", value[i]);
+                }
             }
             fclose(file);
             free(value);
@@ -168,7 +182,7 @@ void set(char *filename, char *propname, char *value)
         fseek(file, valueSize, SEEK_CUR);
     }
     unsigned int newValueSize = strlen(value);
-    
+
     unsigned int newInHeaderSize;
     if (header.buffer[0] == -1)
     {
@@ -176,11 +190,11 @@ void set(char *filename, char *propname, char *value)
     }
     else if (wasframe == 0)
     {
-        newInHeaderSize =getSize(header.data.size) + 10 + newValueSize;
+        newInHeaderSize = getSize(header.data.size) + 10 + newValueSize;
     }
     else
     {
-        newInHeaderSize =getSize(header.data.size) - oldValueSize + newValueSize;
+        newInHeaderSize = getSize(header.data.size) - oldValueSize + newValueSize;
     }
 
     if (oldFramePosition == 0)
@@ -197,24 +211,23 @@ void set(char *filename, char *propname, char *value)
     copy = fopen("tmp.mp3", "rb");
 
     // if (header.data.marker[0]!=73 || getSize(header.data.size)<newInHeaderSize) {
-        tagHeader newHeader;
-        newHeader.data.marker[0] = 73;
-        newHeader.data.marker[1] = 68;
-        newHeader.data.marker[2] = 51;
-        newHeader.data.version = 3;
-        newHeader.data.subversion = 0;
-        newHeader.data.flags = 0;
-        //newHeader.data.size = newInHeaderSize;
-        newHeader.buffer[9] = newInHeaderSize%128;
-        newHeader.buffer[8] = (newInHeaderSize>>7)%128;
-        newHeader.buffer[7] = (newInHeaderSize>>14)%128;
-        newHeader.buffer[6] = (newInHeaderSize>>21)%128;
-        fwrite(newHeader.buffer, (size_t)1, 10, file);
+    tagHeader newHeader;
+    newHeader.data.marker[0] = 73;
+    newHeader.data.marker[1] = 68;
+    newHeader.data.marker[2] = 51;
+    newHeader.data.version = 3;
+    newHeader.data.subversion = 0;
+    newHeader.data.flags = 0;
+    //newHeader.data.size = newInHeaderSize;
+    newHeader.buffer[9] = newInHeaderSize % 128;
+    newHeader.buffer[8] = (newInHeaderSize >> 7) % 128;
+    newHeader.buffer[7] = (newInHeaderSize >> 14) % 128;
+    newHeader.buffer[6] = (newInHeaderSize >> 21) % 128;
+    fwrite(newHeader.buffer, (size_t)1, 10, file);
     // } else {
     //     fwrite(header.buffer, (size_t)1, 10, file);
     // }
-    
-    
+
     fseek(copy, 10, SEEK_SET);
 
     int ind = 10;
@@ -232,13 +245,11 @@ void set(char *filename, char *propname, char *value)
         newFrame.data.name[1] = propname[1];
         newFrame.data.name[2] = propname[2];
         newFrame.data.name[3] = propname[3];
-        newFrame.data.size = reverseBytes(newValueSize+1);
+        newFrame.data.size = reverseBytes(newValueSize + 1);
         newFrame.data.flags = 0;
 
-        
-
         fwrite(newFrame.buffer, (size_t)1, 10, file);
-        putc(0,file);
+        putc(0, file);
         fwrite(value, (size_t)1, newValueSize, file);
     }
 
