@@ -2,11 +2,11 @@
 #include <math.h>
 
 enum Lamp {
-        FILAMENT,
-        HALOGEN,
-        FLURESCENT,
-        LED,
-    };
+    FILAMENT,
+    HALOGEN,
+    FLURESCENT,
+    LED,
+};
 
 struct triangle
 {
@@ -26,23 +26,16 @@ float CalculateTrianglePerimeter(struct triangle Figure) {
     return len;
 }
 
-// union cardReader
-// {
-//     unsigned isOn: 1;
-//     unsigned activeSD: 1;
-//     unsigned activeCF: 1;
-//     unsigned activeMS: 1;
-// };
-
 union cardReader
 {
+    char buffer[2];
     struct
     {
     unsigned isOn: 1;
     unsigned activeSD: 1;
     unsigned activeCF: 1;
     unsigned activeMS: 1;
-    } status;
+    } data;
 };
 
 int main() {
@@ -72,11 +65,11 @@ int main() {
     union cardReader myCardReader;
 
     printf("Enter digit in 16 notation: ");
-    scanf("%x", &myCardReader.status);
+    scanf("%x", &myCardReader);
     printf("Card reader status:\n");
-    printf("Card reader: %s\n", (myCardReader.status.isOn) ? "ON" : "OFF");
-    printf("SD card: %s\n", (myCardReader.status.activeSD) ? "ON" : "OFF");
-    printf("CF card: %s\n", (myCardReader.status.activeCF) ? "ON" : "OFF");
-    printf("MS card: %s\n", (myCardReader.status.activeMS) ? "ON" : "OFF");
+    printf("Card reader: %s\n", (myCardReader.data.isOn) ? "ON" : "OFF");
+    printf("SD card: %s\n", (myCardReader.data.activeSD) ? "ON" : "OFF");
+    printf("CF card: %s\n", (myCardReader.data.activeCF) ? "ON" : "OFF");
+    printf("MS card: %s\n", (myCardReader.data.activeMS) ? "ON" : "OFF");
 
 }
