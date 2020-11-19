@@ -15,3 +15,5 @@
 * [Лабораторная работа №10](https://github.com/Bibletoon/programmingFirstSem/tree/master/Lab10)
 * [Лабораторная работа №11](https://github.com/Bibletoon/programmingFirstSem/tree/master/Lab11)
 * [Лабораторная работа №12](https://github.com/Bibletoon/programmingFirstSem/tree/master/Lab12)
+* [Лабораторная работа №13](https://github.com/Bibletoon/programmingFirstSem/tree/master/Lab13)
+* [Лабораторная работа №14](https://github.com/Bibletoon/programmingFirstSem/tree/master/Lab14)
