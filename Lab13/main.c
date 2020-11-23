@@ -58,6 +58,10 @@ void show(char *filename)
         return;
     }
     printf("%c%c%cv2.%d.%d\n", header.data.marker[0], header.data.marker[1], header.data.marker[2], header.data.version, header.data.subversion);
+    if (header.data.version == 2) {
+        printf("Unsupported version of file.");
+        return;
+    }
     while (ftell(file) < getSize(header.data.size) + 10)
     {
         tagFrame frame;
@@ -73,11 +77,15 @@ void show(char *filename)
         fread(value, (size_t)1, valueSize, file);
         if (frame.data.name[0] == 'A' && frame.data.name[1] == 'P' && frame.data.name[2] == 'I' && frame.data.name[3] == 'C')
         {
-            printf("unsupported tag");
+            printf("unsupported tag\n");
         }
         else if (frame.data.name[0] == 'C' && frame.data.name[1] == 'O' && frame.data.name[2] == 'M' && frame.data.name[3] == 'M')
         {
-            printf("unsupported tag");
+            printf("unsupported tag\n");
+        }
+        else if (frame.data.name[0] == 'T' && frame.data.name[1] == 'T')
+        {
+            printf("unsupported tag\n");
         }
         else
         {
@@ -103,6 +111,10 @@ void get(char *filename, char *propname)
     }
     tagHeader header;
     fread(header.buffer, (size_t)1, 10, file);
+    if (header.data.version == 2) {
+        printf("Unsupported version of file.");
+        return;
+    }
     while (ftell(file) < getSize(header.data.size) + 10)
     {
         tagFrame frame;
@@ -117,7 +129,6 @@ void get(char *filename, char *propname)
 
             unsigned char *value = malloc((size_t)1 * valueSize);
             fread(value, (size_t)1, valueSize, file);
-            printf("%s = ", frame.data.name);
             if (frame.data.name[0] == 'A' && frame.data.name[1] == 'P' && frame.data.name[2] == 'I' && frame.data.name[3] == 'C')
             {
                 printf("unsupported tag");
@@ -125,6 +136,10 @@ void get(char *filename, char *propname)
             else if (frame.data.name[0] == 'C' && frame.data.name[1] == 'O' && frame.data.name[2] == 'M' && frame.data.name[3] == 'M')
             {
                 printf("unsupported tag");
+            }
+            else if (frame.data.name[0] == 'T' && frame.data.name[1] == 'T')
+            {
+                printf("unsupported tag\n");
             }
             else
             {
