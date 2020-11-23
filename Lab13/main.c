@@ -45,7 +45,6 @@ unsigned int getSize(unsigned int n)
 void show(char *filename)
 {
     FILE *file;
-    printf("%s",filename);
     if ((file = fopen(filename, "rb")) == NULL)
     {
         printf("Failed to open file");
