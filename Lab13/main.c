@@ -45,6 +45,7 @@ unsigned int getSize(unsigned int n)
 void show(char *filename)
 {
     FILE *file;
+    printf("%s",filename);
     if ((file = fopen(filename, "rb")) == NULL)
     {
         printf("Failed to open file");
@@ -72,6 +73,10 @@ void show(char *filename)
         unsigned char *value = malloc((size_t)1 * valueSize);
         fread(value, (size_t)1, valueSize, file);
         if (frame.data.name[0] == 'A' && frame.data.name[1] == 'P' && frame.data.name[2] == 'I' && frame.data.name[3] == 'C')
+        {
+            printf("unsupported tag");
+        }
+        else if (frame.data.name[0] == 'C' && frame.data.name[1] == 'O' && frame.data.name[2] == 'M' && frame.data.name[3] == 'M')
         {
             printf("unsupported tag");
         }
@@ -115,6 +120,10 @@ void get(char *filename, char *propname)
             fread(value, (size_t)1, valueSize, file);
             printf("%s = ", frame.data.name);
             if (frame.data.name[0] == 'A' && frame.data.name[1] == 'P' && frame.data.name[2] == 'I' && frame.data.name[3] == 'C')
+            {
+                printf("unsupported tag");
+            }
+            else if (frame.data.name[0] == 'C' && frame.data.name[1] == 'O' && frame.data.name[2] == 'M' && frame.data.name[3] == 'M')
             {
                 printf("unsupported tag");
             }
