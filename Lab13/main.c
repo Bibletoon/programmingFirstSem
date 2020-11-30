@@ -233,7 +233,6 @@ void set(char *filename, char *propname, char *value)
     file = fopen(filename, "wb");
     copy = fopen("tmp.mp3", "rb");
 
-    // if (header.data.marker[0]!=73 || getSize(header.data.size)<newInHeaderSize) {
     tagHeader newHeader;
     newHeader.data.marker[0] = 73;
     newHeader.data.marker[1] = 68;
@@ -241,16 +240,11 @@ void set(char *filename, char *propname, char *value)
     newHeader.data.version = 3;
     newHeader.data.subversion = 0;
     newHeader.data.flags = 0;
-    //newHeader.data.size = newInHeaderSize;
     newHeader.buffer[9] = newInHeaderSize % 128;
     newHeader.buffer[8] = (newInHeaderSize >> 7) % 128;
     newHeader.buffer[7] = (newInHeaderSize >> 14) % 128;
     newHeader.buffer[6] = (newInHeaderSize >> 21) % 128;
     fwrite(newHeader.buffer, (size_t)1, 10, file);
-    // } else {
-    //     fwrite(header.buffer, (size_t)1, 10, file);
-    // }
-
     fseek(copy, 10, SEEK_SET);
 
     int ind = 10;
