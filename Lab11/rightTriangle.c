@@ -16,4 +16,3 @@ float rightTrianglePerimeter(struct rightTriangle triangle) {
     len += sqrt(pow((triangle.x1-triangle.x3),2)+pow((triangle.y1-triangle.y3),2));
     return len;
 }
-
