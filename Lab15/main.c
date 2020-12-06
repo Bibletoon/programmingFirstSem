@@ -66,77 +66,6 @@ void create(char* filename, char** files, int count) {
     fclose(output);
 }
 
-void createZipped(char* filename, char** files, int count) {
-    // FILE* output = fopen(filename,"wb");
-    printf("Here\n");
-    FILE* input;
-    unsigned int difCounter[255];
-    for (int i=0;i<256;i++) {
-        difCounter[i] = 0;
-    }
-
-    for (int filesIterator=0;filesIterator<count;filesIterator++) {
-        input = fopen(files[filesIterator],"rb");
-        if (input == NULL) {
-            continue;
-        }
-        int c;
-        while ((c=getc(input))!=EOF) {
-            difCounter[c]++;
-        }
-        fclose(input);
-    }
-
-    for (int i=0;i<256;i++) {
-        if (difCounter[i]!=0) {
-            printf("%x - %d\n",i,difCounter[i]);
-        }
-    }
-
-
-    // for (int filesIterator=0;filesIterator<count;filesIterator++) {
-    //     input = fopen(files[filesIterator],"rb");
-    //     if (input == NULL) {
-    //         printf("Error! No such file - %s\n",files[filesIterator]);
-    //         continue;
-    //     }
-
-    //     unsigned char nameSize = 0;
-    //     while (files[filesIterator][nameSize]) {
-    //         nameSize++;
-    //     }
-        
-    //     putc(nameSize,output);
-
-    //     nameSize=0;
-    //     while (files[filesIterator][nameSize]) {
-    //         putc(files[filesIterator][nameSize],output);
-    //         nameSize++;
-    //     }
-
-    //     long fileSize;
-
-    //     fseek(input, 0L, SEEK_END);
-
-    //     fileSize = ftell(input);
-
-    //     fseek(input, 0L, SEEK_SET);
-
-    //     putc(fileSize%256,output);
-    //     putc((fileSize>>8)%256,output);
-    //     putc((fileSize>>16)%256,output);
-    //     putc(fileSize>>24,output);
-
-    //     int c;
-    //     while ((c = getc(input)) != EOF) {
-    //         putc(c,output);
-    //     }
-    //     fclose(input);
-    // }
-    // printf("Array succesfully created");
-    // fclose(output);
-}
-
 void list(char* filename) {
     FILE* input;
     input = fopen(filename,"rb");
@@ -209,11 +138,9 @@ void extract(char* filename) {
 }
 
 int main(int argc, char *argv[]) {
-    int compression = 0;
     char** files = (char**)malloc(sizeof(char*)*(argc-3));
     char* filename;
     int count = 0;
-    int zipped = 0;
 
     for (int i=1;i<argc;i++) {
         switch(argv[i][2]) {
@@ -238,19 +165,11 @@ int main(int argc, char *argv[]) {
             case 'l':
                 flag = LIST;
                 break;
-            case 'z':
-                zipped = 1;
-                
         }
     }
     switch (flag) {
         case CREATE:
-            if (zipped==0) {
-                create(filename,files,count);
-            } else {
-                createZipped(filename,files,count);
-            }
-            
+            create(filename,files,count);
             break;
         case LIST:
             list(filename);
