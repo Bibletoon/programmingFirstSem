@@ -24,11 +24,6 @@ int strToNum(char *str)
     return num;
 }
 
-// .bmp файл
-// Размер файла - Сдвиг 2 - размер 4
-// Ширина картинки - Сдвиг 18 - размер 4
-// Высота картинки - Сдвиг 22 - размер 4
-
 int emulateGame(int **field, int height, int width)
 {
     int temp[height][width];

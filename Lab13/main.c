@@ -74,7 +74,7 @@ void show(char *filename)
 
         unsigned int valueSize = reverseBytes(frame.data.size);
         unsigned char *value = malloc((size_t)1 * valueSize);
-        fread(value, (size_t)1, valueSize, file);
+        fread(value, (size_t)1, (size_t)1 * valueSize, file);
         if (frame.data.name[0] == 'A' && frame.data.name[1] == 'P' && frame.data.name[2] == 'I' && frame.data.name[3] == 'C')
         {
             printf("unsupported tag\n");
