@@ -83,10 +83,6 @@ void show(char *filename)
         {
             printf("unsupported tag\n");
         }
-        else if (frame.data.name[0] == 'T' && frame.data.name[1] == 'T')
-        {
-            printf("unsupported tag\n");
-        }
         else
         {
             for (int i = 0; i < valueSize; i++)
