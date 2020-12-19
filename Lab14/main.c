@@ -239,7 +239,6 @@ void loadFieldOneBpp(int **field, int height, int width, FILE *image)
                 if (nm==0) {fieldLine[bitsRead] = 0;} 
                 else 
                 {fieldLine[bitsRead]=1;}
-                
                 bitsRead += 1;
                 if (bitsRead == width)
                 {
