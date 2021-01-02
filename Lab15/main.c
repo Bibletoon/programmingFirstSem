@@ -17,7 +17,6 @@ long reverse(long x){
      return x;
 }
 
-
 void create(char* filename, char** files, int count) {
     
     FILE* output = fopen(filename,"wb");
