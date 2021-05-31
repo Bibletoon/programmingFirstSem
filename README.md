@@ -1,7 +1,8 @@
 # Программирование 1 Семестр
 
 ## Иванов Александр M3101 (Вариант 8)
-
+---
+[Условия лабораторных](https://github.com/Bibletoon/programmingFirstSem/tree/master/Tasks)
 ---
 * [Лабораторная работа №1](https://github.com/Bibletoon/programmingFirstSem/tree/master/Lb_01)
 * [Лабораторная работа №2](https://github.com/Bibletoon/programmingFirstSem/tree/master/Lb_02)
